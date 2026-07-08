@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="mar" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a3a57"/>
+      <stop offset="1" stop-color="#031321"/>
+    </linearGradient>
+    <linearGradient id="pez" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#35d0f0"/>
+      <stop offset="1" stop-color="#0899c9"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#mar)"/>
+  <!-- olas de fondo -->
+  <path d="M0 46c6 0 6-4 12-4s6 4 12 4 6-4 12-4 6 4 12 4 6-4 12-4v22H0z"
+        fill="#74dcf5" opacity=".16"/>
+  <path d="M0 52c6 0 6-4 12-4s6 4 12 4 6-4 12-4 6 4 12 4 6-4 12-4v16H0z"
+        fill="#74dcf5" opacity=".22"/>
+  <!-- pez -->
+  <path d="M50 27c0-1-6.5-10-18-10S12 26 12 27c0 1 8.5 10 20 10s18-9 18-10z" fill="url(#pez)"/>
+  <path d="M12 27l-7-7.5v15z" fill="#0899c9"/>
+  <circle cx="40" cy="24" r="2.3" fill="#fff"/>
+  <!-- anzuelo coral, delante de la boca -->
+  <path d="M58 8v12a5 5 0 0 1-10 0" fill="none" stroke="#ff7a5c"
+        stroke-width="3" stroke-linecap="round"/>
+</svg>

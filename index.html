@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#05263c" />
+
+  <title>MiPesca — Tus spots con las mejores condiciones | Predicción de pesca en España</title>
+  <link rel="icon" type="image/svg+xml" href="img/logo.svg" />
+  <meta name="description" content="MiPesca te dice las mejores horas para pescar hoy en tu zona: actividad solunar, meteo y mareas en una sola puntuación. Diario de capturas estilo Pokédex, guía de especies y tallas mínimas, y comunidad de pescadores. Gratis." />
+  <link rel="canonical" href="https://pescando.es/" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="MiPesca — Guarda tus spots y pesca con las mejores condiciones" />
+  <meta property="og:description" content="Predicción solunar + meteo para pescar en España, diario de capturas estilo Pokédex y guía de especies con tallas mínimas. Gratis." />
+  <meta property="og:url" content="https://pescando.es/" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- JSON-LD: aplicación + FAQ (SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "MiPesca",
+    "url": "https://pescando.es/",
+    "applicationCategory": "SportsApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "es",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "Predicción de actividad de pesca por zonas de España combinando calendario solunar, meteorología y mareas. Incluye diario de capturas, guía de especies con tallas mínimas y comunidad."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cuáles son las mejores horas para pescar hoy?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Las mejores horas dependen de la actividad solunar (fases y tránsitos de la luna), la meteorología y las mareas de tu zona. MiPesca combina estos factores y te muestra las ventanas de mayor actividad para hoy y los próximos días en el punto exacto donde vas a pescar." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué es el calendario solunar?",
+        "acceptedAnswer": { "@type": "Answer", "text": "La teoría solunar predice los picos de actividad de los peces según la posición de la luna y el sol: los periodos mayores (luna sobre nuestra cabeza o bajo nuestros pies) y menores (salida y puesta de luna). MiPesca calcula estos periodos para tu ubicación y los cruza con viento, presión y mareas." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿MiPesca es gratis?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Sí. Puedes consultar la predicción y la guía de especies sin registrarte. Con una cuenta gratuita desbloqueas el diario de capturas, tu colección de especies y la comunidad." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Sirve para pesca en el mar y en agua dulce?",
+        "acceptedAnswer": { "@type": "Answer", "text": "MiPesca está pensada para la pesca en España: costa, puertos y escolleras, con datos de mareas y meteorología marina, además de la actividad solunar que aplica igualmente en embalses y ríos." }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* Paleta MiPesca · mar abierto (idéntica a la app) */
+    :root {
+      --azul:       #0899c9;
+      --azul-osc:   #05263c;
+      --azul-cla:   #74dcf5;
+      --abismo-2:   #0a3a57;
+      --superficie: #0b2e46;
+      --coral:      #ff7a5c;
+      --verde-cla:  #74c69d;
+      --amarillo:   #ffd166;
+      --fosa:       #04121f;
+      --blanco:     #fff;
+      --radio:      14px;
+      --fuente:     'Segoe UI', system-ui, sans-serif;
+      --grad-oceano: linear-gradient(135deg, #00b4d8, #0077b6);
+      --maxw: 1080px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--fuente);
+      background: radial-gradient(120% 80% at 50% -10%, var(--abismo-2) 0%, var(--azul-osc) 55%, #031321 100%) fixed;
+      color: var(--blanco);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+    a { color: var(--azul-cla); text-decoration: none; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+    /* ── Header ── */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(4,18,31,.85); backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(116,220,245,.14);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px; max-width: var(--maxw); margin: 0 auto;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; color: #fff; }
+    .logo img { width: 30px; height: 30px; border-radius: 7px; display: block; }
+    .logo .mi { color: var(--azul-cla); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 26px; border-radius: 30px;
+      font-size: 16px; font-weight: 600; font-family: var(--fuente);
+      border: none; cursor: pointer; transition: opacity .15s, transform .1s;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-primario { background: var(--grad-oceano); color: #fff; box-shadow: 0 4px 14px rgba(0,150,199,.35); }
+    .btn-ghost { background: rgba(255,255,255,.1); color: #fff; }
+    .btn-sm { padding: 9px 20px; font-size: 14px; }
+
+    /* ── Hero ── */
+    .hero {
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center;
+      padding: 72px 0 56px;
+    }
+    .hero h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.12; letter-spacing: -.5px; }
+    .hero h1 em { font-style: normal; color: var(--azul-cla); }
+    .hero p.sub { margin: 18px 0 28px; font-size: 18px; color: rgba(255,255,255,.75); max-width: 46ch; }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-nota { margin-top: 14px; font-size: 13px; color: rgba(255,255,255,.5); }
+
+    /* ── Marco de móvil con captura real ── */
+    .phone {
+      width: 300px; margin: 0 auto;
+      background: var(--fosa); border-radius: 36px; padding: 10px;
+      border: 1px solid rgba(116,220,245,.2);
+      box-shadow: 0 24px 60px rgba(0,0,0,.5);
+    }
+    .phone img {
+      display: block; width: 100%; height: auto; border-radius: 26px;
+    }
+
+    /* ── Barra de progreso de lectura ── */
+    .progreso {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0;
+      background: var(--grad-oceano); z-index: 100;
+    }
+
+    /* ── Scrollytelling: móvil fijo + pasos que van pasando ── */
+    .scrolly-grid {
+      display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px;
+      align-items: start;
+    }
+    .scrolly-phone {
+      position: sticky; top: 86px;
+      display: flex; justify-content: center;
+      padding: 24px 0;
+    }
+    .phone-screen {
+      position: relative; aspect-ratio: 780 / 1688;
+      border-radius: 26px; overflow: hidden; background: var(--fosa);
+    }
+    .phone-screen img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+      opacity: 0; transition: opacity .5s ease;
+    }
+    .phone-screen img.activa { opacity: 1; }
+
+    .paso-s {
+      min-height: 78vh;
+      display: flex; flex-direction: column; justify-content: center;
+      opacity: .22; transform: translateY(8px);
+      transition: opacity .45s ease, transform .45s ease;
+    }
+    .paso-s.activo { opacity: 1; transform: none; }
+    .paso-s .paso-num {
+      display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
+      background: var(--grad-oceano); font-weight: 800; font-size: 16px; margin-bottom: 16px;
+    }
+    .paso-s h3 { font-size: clamp(22px, 2.6vw, 30px); margin-bottom: 10px; letter-spacing: -.3px; }
+    .paso-s p { font-size: 16.5px; color: rgba(255,255,255,.72); max-width: 44ch; }
+    .paso-s .paso-chip {
+      display: inline-block; width: fit-content; margin-top: 14px;
+      font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px;
+      background: rgba(116,220,245,.12); color: var(--azul-cla);
+    }
+
+    /* ── Aparición al hacer scroll (secciones) ── */
+    .reveal {
+      opacity: 0; transform: translateY(26px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.vista { opacity: 1; transform: none; }
+    .grid4 .reveal:nth-child(2) { transition-delay: .08s; }
+    .grid4 .reveal:nth-child(3) { transition-delay: .16s; }
+    .grid4 .reveal:nth-child(4) { transition-delay: .24s; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .paso-s { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .phone-screen img { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ── Secciones ── */
+    section { padding: 56px 0; }
+    .sec-titulo { font-size: clamp(26px, 3.6vw, 36px); text-align: center; margin-bottom: 10px; letter-spacing: -.3px; }
+    .sec-sub { text-align: center; color: rgba(255,255,255,.65); max-width: 60ch; margin: 0 auto 40px; }
+
+    .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .feat {
+      background: rgba(255,255,255,.06); border-radius: var(--radio); padding: 22px;
+      border: 1px solid rgba(116,220,245,.08);
+    }
+    .feat svg { width: 30px; height: 30px; color: var(--azul-cla); margin-bottom: 12px; }
+    .feat h3 { font-size: 17px; margin-bottom: 6px; }
+    .feat p { font-size: 14px; color: rgba(255,255,255,.65); }
+    .feat .chip {
+      display: inline-block; margin-top: 10px; font-size: 11px; font-weight: 700;
+      padding: 3px 10px; border-radius: 20px; background: rgba(255,122,92,.15); color: var(--coral);
+    }
+
+    /* ── Texto SEO ── */
+    .seo { max-width: 720px; margin: 0 auto; color: rgba(255,255,255,.72); font-size: 15.5px; }
+    .seo h2 { color: #fff; font-size: 24px; margin-bottom: 14px; }
+    .seo h3 { color: var(--azul-cla); font-size: 17px; margin: 22px 0 8px; }
+    .seo p { margin-bottom: 12px; }
+
+    /* ── FAQ ── */
+    .faq { max-width: 720px; margin: 0 auto; }
+    .faq details {
+      background: rgba(255,255,255,.05); border-radius: var(--radio);
+      padding: 16px 20px; margin-bottom: 10px; border: 1px solid rgba(116,220,245,.08);
+    }
+    .faq summary { font-weight: 600; cursor: pointer; font-size: 16px; list-style: none; position: relative; padding-right: 28px; }
+    .faq summary::after { content: '+'; position: absolute; right: 0; top: 0; color: var(--azul-cla); font-size: 20px; font-weight: 400; }
+    .faq details[open] summary::after { content: '–'; }
+    .faq details p { margin-top: 10px; font-size: 14.5px; color: rgba(255,255,255,.7); }
+
+    /* ── CTA final ── */
+    .cta-final {
+      text-align: center;
+      background: rgba(8,153,201,.1); border: 1px solid rgba(116,220,245,.18);
+      border-radius: 20px; padding: 48px 24px; margin: 0 0 56px;
+    }
+    .cta-final h2 { font-size: clamp(24px, 3.4vw, 34px); margin-bottom: 10px; }
+    .cta-final p { color: rgba(255,255,255,.7); margin-bottom: 24px; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid rgba(116,220,245,.12);
+      padding: 28px 0 40px; font-size: 13.5px; color: rgba(255,255,255,.5);
+    }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+    .redes { display: flex; gap: 16px; }
+    .redes a { color: rgba(255,255,255,.65); display: inline-flex; align-items: center; gap: 6px; }
+    .redes a:hover { color: var(--azul-cla); }
+    .redes svg { width: 18px; height: 18px; }
+
+    /* ── Responsive ── */
+    .scrolly-phone .phone { width: min(300px, 100%); }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 48px 0 40px; }
+      .hero p.sub { margin-inline: auto; }
+      .hero-ctas { justify-content: center; }
+      .grid4 { grid-template-columns: repeat(2, 1fr); }
+      .hero .phone { margin-top: 8px; }
+
+      /* Scrolly en móvil: el teléfono (pequeño) queda fijo arriba y los
+         pasos van pasando por debajo. */
+      .scrolly-grid { grid-template-columns: 1fr; gap: 0; }
+      .scrolly-phone {
+        top: 72px; z-index: 5; padding: 10px 0 6px; pointer-events: none;
+      }
+      .scrolly-phone .phone { width: 172px; padding: 6px; border-radius: 22px; }
+      .phone-screen { border-radius: 17px; }
+      .paso-s {
+        min-height: 74vh; justify-content: flex-end; padding-bottom: 7vh;
+        text-align: center; align-items: center;
+        opacity: .08; /* que el paso saliente no se lea tras el teléfono */
+      }
+      .paso-s.activo { opacity: 1; }
+      .paso-s p { max-width: 34ch; }
+    }
+    @media (max-width: 520px) {
+      .grid4 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progreso" aria-hidden="true"></div>
+
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <img src="img/logo.svg" alt="Logo de MiPesca" width="30" height="30" />
+        <span><span class="mi">Mi</span>Pesca</span>
+      </div>
+      <a class="btn btn-primario btn-sm" href="/app">Abrir la app</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div>
+        <h1>Guarda tus spots y asegúrate <em>las mejores condiciones</em> para tu jornada</h1>
+        <p class="sub">
+          MiPesca combina la actividad solunar, la meteorología y las mareas de tu zona
+          en una sola puntuación. Elige el mejor día y la mejor hora para pescar en España — gratis y sin registro.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn btn-primario" href="/app">Ver la predicción de hoy</a>
+          <a class="btn btn-ghost" href="#como-funciona">Cómo funciona</a>
+        </div>
+        <p class="hero-nota">Funciona en el móvil, sin instalar nada. Cuenta gratuita opcional.</p>
+      </div>
+
+      <!-- Captura real: pestaña Pescar -->
+      <div class="phone">
+        <img src="img/app-pescar.png" width="780" height="1688"
+          alt="Pantalla Pescar de MiPesca: puntuación de actividad por día y por spot, con viento, oleaje y fase lunar" />
+      </div>
+    </div>
+
+    <!-- CÓMO FUNCIONA: recorrido con scroll, el móvil va cambiando de pantalla -->
+    <section id="como-funciona">
+      <h2 class="sec-titulo reveal">Así funciona, paso a paso</h2>
+      <p class="sec-sub reveal">Sigue bajando: la pantalla va cambiando contigo. Todo lo que ves son capturas reales de la app.</p>
+
+      <div class="scrolly-grid">
+        <div class="scrolly-phone">
+          <div class="phone">
+            <div class="phone-screen">
+              <img src="img/app-pescar.png" class="activa"
+                alt="Pantalla Pescar de MiPesca: puntuación de actividad por día y por spot" />
+              <img src="img/app-camaras.png" loading="lazy"
+                alt="Detalle de spot: mejores horas solunares y cámaras de playa en directo" />
+              <img src="img/app-analitica.png" loading="lazy"
+                alt="Diario de MiPesca: resumen de sesiones, capturas y lo que te funciona" />
+              <img src="img/app-analitica-cebos.png" loading="lazy"
+                alt="Analítica de MiPesca: efectividad por cebo, mejores condiciones y evolución mensual" />
+              <img src="img/app-pokedex.png" loading="lazy"
+                alt="Colección de especies estilo Pokédex con récords por especie" />
+              <img src="img/app-mapa-vivo.png" loading="lazy"
+                alt="Mapa en vivo estilo Waze: pescadores presentes ahora en la costa de Cádiz y zonas activas con chat" />
+              <img src="img/app-chat-zona.png" loading="lazy"
+                alt="Chat de la playa: pescadores comentando en vivo cómo va la jornada, el viento y los cebos que funcionan" />
+              <img src="img/app-comunidad.png" loading="lazy"
+                alt="Comunidad de MiPesca: ranking de mejores capturas compartidas con medallas" />
+              <img src="img/app-niveles.png" loading="lazy"
+                alt="Perfil de pescador: nivel 4 Pescador experto con barra de XP y rejilla de 16 logros" />
+            </div>
+          </div>
+        </div>
+
+        <div class="scrolly-pasos">
+          <div class="paso-s activo">
+            <span class="paso-num">1</span>
+            <h3>Guarda tus spots y mira la puntuación</h3>
+            <p>Añade tus zonas de pesca — playa, puerto, escollera — y MiPesca puntúa
+              cada día de 0 a 100 cruzando solunar, viento, oleaje y mareas.
+              De un vistazo sabes qué día y qué spot merecen la pena.</p>
+            <span class="paso-chip">Pestaña Pescar</span>
+          </div>
+          <div class="paso-s">
+            <span class="paso-num">2</span>
+            <h3>Comprueba el mar en directo</h3>
+            <p>Dentro de cada spot tienes sus mejores horas del día (periodos solunares)
+              y cámaras públicas de playa en directo: mira cómo está el mar
+              antes de cargar el coche.</p>
+            <span class="paso-chip">Cámaras + solunar</span>
+          </div>
+          <div class="paso-s">
+            <span class="paso-num">3</span>
+            <h3>Apunta lo que pescas</h3>
+            <p>Cada salida queda en tu diario: capturas, tallas, cebos y hasta las
+              salidas en blanco (también son un dato). La app lleva la cuenta
+              de tus sesiones, tus especies top y tus récords.</p>
+            <span class="paso-chip">Pestaña Diario</span>
+          </div>
+          <div class="paso-s">
+            <span class="paso-num">4</span>
+            <h3>Descubre lo que te funciona</h3>
+            <p>Con tus propios datos, MiPesca calcula la efectividad de cada cebo,
+              tus mejores condiciones de marea, presión y luna, y tu evolución
+              mes a mes. Pescas con datos, no con corazonadas.</p>
+            <span class="paso-chip">Analítica personal</span>
+          </div>
+          <div class="paso-s">
+            <span class="paso-num">5</span>
+            <h3>Completa tu colección</h3>
+            <p>Cada especie nueva se desbloquea en tu colección con su récord,
+              como una Pokédex. 70 especies del litoral español te esperan —
+              ¿hasta dónde vas a llegar?</p>
+            <span class="paso-chip">Colección de especies</span>
+          </div>
+          <div class="paso-s">
+            <span class="paso-num">6</span>
+            <h3>Mira quién está en tu playa</h3>
+            <p>Como en Waze, pero de pesca: haz "check-in" cuando salgas y verás
+              a los demás pescadores en el mapa en tiempo real, con su modalidad
+              y su cebo. Sabrás dónde hay ambiente antes de elegir playa.</p>
+            <span class="paso-chip">Mapa en vivo</span>
+          </div>
+          <div class="paso-s">
+            <span class="paso-num">7</span>
+            <h3>Charla con los de tu zona</h3>
+            <p>Cada playa tiene su chat: cómo va la jornada, qué cebo está
+              funcionando, cómo sopla el viento… Información fresca de quien
+              está allí mismo mojando el sedal. Los mensajes caducan solos.</p>
+            <span class="paso-chip">Chat de la playa</span>
+          </div>
+          <div class="paso-s">
+            <span class="paso-num">8</span>
+            <h3>Comparte y compite</h3>
+            <p>Presume de tus mejores piezas en el ranking de la comunidad
+              y mira qué está saliendo en el muro de capturas compartidas.
+              ¿Aguantará tu récord en el podio?</p>
+            <span class="paso-chip">Ranking</span>
+          </div>
+          <div class="paso-s">
+            <span class="paso-num">9</span>
+            <h3>Sube de nivel</h3>
+            <p>Todo lo que registras suma XP: asciende de Grumete a Leyenda del mar
+              y desbloquea 16 insignias — Pieza mayor, Guardián del mar,
+              Madrugador… Hasta la salida en blanco cuenta.</p>
+            <span class="paso-chip">Niveles e insignias</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PILARES -->
+    <section id="funciones">
+      <h2 class="sec-titulo reveal">Todo lo que necesitas, en cuatro pestañas</h2>
+      <p class="sec-sub reveal">Pensada para el pescador de a pie en España: consulta rápida antes de salir, registro de lo que capturas y una comunidad que comparte lo que funciona.</p>
+      <div class="grid4">
+        <div class="feat reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="22"/><path d="M5 15H2a10 10 0 0 0 20 0h-3"/><line x1="5" y1="9" x2="19" y2="9"/></svg>
+          <h3>Pescar</h3>
+          <p>Puntuación de actividad por zona y día: solunar, viento, presión, mareas y fase lunar en un solo número. Con cámaras de playa en directo para ver el mar antes de salir.</p>
+        </div>
+        <div class="feat reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <h3>Diario</h3>
+          <p>Registra tus capturas y colecciona especies como en una Pokédex. La app aprende de tus salidas y te da insights.</p>
+          <span class="chip">Estilo Pokédex</span>
+        </div>
+        <div class="feat reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <h3>Guía</h3>
+          <p>Especies, tallas mínimas legales y consejos por modalidad. Consulta libre, sin necesidad de cuenta.</p>
+        </div>
+        <div class="feat reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c2 0 2 1.5 4 1.5S8 6 10 6s2 1.5 4 1.5S16 6 18 6s2 1.5 4 1.5"/><path d="M2 12c2 0 2 1.5 4 1.5s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5"/><path d="M2 18c2 0 2 1.5 4 1.5s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5"/></svg>
+          <h3>Comunidad</h3>
+          <p>Ranking de capturas, muro de la comunidad y chat por zonas en el mapa en vivo. Sube de nivel y colecciona insignias mientras pescas.</p>
+          <span class="chip">Niveles y logros</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEXTO SEO -->
+    <section class="seo reveal">
+      <h2>Las mejores horas para pescar, calculadas para tu zona</h2>
+      <p>
+        No todos los momentos del día valen lo mismo. La <strong>teoría solunar</strong> predice los picos
+        de actividad de los peces según la posición de la luna y el sol: los <strong>periodos mayores</strong>
+        (cuando la luna cruza el meridiano) y los <strong>periodos menores</strong> (salida y puesta de luna)
+        concentran la mayor parte de las picadas.
+      </p>
+      <h3>Solunar + meteo + mareas, no solo la luna</h3>
+      <p>
+        Un buen periodo solunar con un temporal de poniente no sirve de mucho. Por eso MiPesca cruza el
+        calendario solunar con la <strong>meteorología marina</strong> (viento, presión, oleaje) y las
+        <strong>mareas</strong> de tu zona, y lo resume en una puntuación de 0 a 100 fácil de leer.
+      </p>
+      <h3>Hecha para pescar en España</h3>
+      <p>
+        Zonas de costa españolas, tallas mínimas legales por especie y una comunidad local. Da igual si pescas
+        a spinning en una escollera del Mediterráneo, a surfcasting en el Atlántico o al corcheo en tu puerto:
+        la predicción se calcula para el punto exacto donde mojas el sedal.
+      </p>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <h2 class="sec-titulo reveal">Preguntas frecuentes</h2>
+      <div class="faq reveal">
+        <details>
+          <summary>¿Cuáles son las mejores horas para pescar hoy?</summary>
+          <p>Depende de tu zona: la actividad solunar, la meteorología y las mareas cambian cada día y en cada punto de la costa. Abre MiPesca, elige tu zona y verás las ventanas de mayor actividad de hoy y de los próximos días.</p>
+        </details>
+        <details>
+          <summary>¿Qué es el calendario solunar y funciona de verdad?</summary>
+          <p>Es una teoría que relaciona la actividad de los peces con la posición de la luna y el sol. No es una bola de cristal, pero cruzada con meteo y mareas es la mejor referencia disponible para decidir cuándo salir — y con el Diario puedes comprobar con tus propias capturas cuánto acierta en tus spots.</p>
+        </details>
+        <details>
+          <summary>¿Es gratis? ¿Necesito cuenta?</summary>
+          <p>La predicción y la guía de especies son de consulta libre, sin registro. Con una cuenta gratuita desbloqueas el diario de capturas, tu colección de especies y la comunidad.</p>
+        </details>
+        <details>
+          <summary>¿Sirve para río y embalse o solo para el mar?</summary>
+          <p>Está pensada sobre todo para la costa (incluye mareas y meteo marina), pero los periodos solunares aplican igual en agua dulce, así que también te orienta en ríos y embalses.</p>
+        </details>
+        <details>
+          <summary>¿Funciona sin conexión?</summary>
+          <p>Sí: la app guarda los datos de tu zona para que puedas consultar la predicción y apuntar capturas aunque estés en una cala sin cobertura. Se sincroniza al volver la conexión.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <div class="cta-final reveal">
+      <h2>La próxima salida, con ventaja</h2>
+      <p>Consulta la predicción de tu zona en menos de un minuto. Sin instalar nada, sin registro.</p>
+      <a class="btn btn-primario" href="/app">Abrir MiPesca gratis</a>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div>© 2026 MiPesca · pescando.es</div>
+      <nav class="redes">
+        <a href="https://www.instagram.com/" rel="noopener" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.tiktok.com/" rel="noopener" target="_blank" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+          TikTok
+        </a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      // Barra de progreso de lectura
+      const barra = document.querySelector('.progreso');
+      const pintarProgreso = () => {
+        const max = document.documentElement.scrollHeight - innerHeight;
+        barra.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+      };
+      addEventListener('scroll', pintarProgreso, { passive: true });
+      pintarProgreso();
+
+      // Scrollytelling: el paso que cruza el centro de la pantalla manda,
+      // y la pantalla del móvil cambia con él.
+      const pasos = [...document.querySelectorAll('.paso-s')];
+      const pantallas = [...document.querySelectorAll('.phone-screen img')];
+      const activar = (i) => {
+        pasos.forEach((p, j) => p.classList.toggle('activo', j === i));
+        pantallas.forEach((im, j) => im.classList.toggle('activa', j === i));
+      };
+      const obsPasos = new IntersectionObserver((entradas) => {
+        entradas.forEach(e => { if (e.isIntersecting) activar(pasos.indexOf(e.target)); });
+      }, { rootMargin: '-40% 0px -40% 0px' });
+      pasos.forEach(p => obsPasos.observe(p));
+
+      // Aparición de secciones al entrar en pantalla (una sola vez)
+      const obsReveal = new IntersectionObserver((entradas) => {
+        entradas.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('vista'); obsReveal.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => obsReveal.observe(el));
+    })();
+  </script>
+
+</body>
+</html>
