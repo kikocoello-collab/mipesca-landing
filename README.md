@@ -4,7 +4,8 @@ Landing estática de [MiPesca](https://github.com/kikocoello-collab/APP-PESCA-TO
 la app de pesca en el mar: condiciones, mareas, solunar, diario de capturas y comunidad.
 
 - `index.html` — página completa (HTML + CSS inline, sin build)
-- `img/` — capturas de la app y logo
+- `img/` — capturas reales de la app, logo, favicon y og-image
+- `social/` — piezas para redes (posts de Instagram), generadas con el mismo sistema de diseño
 
 ## Publicar
 

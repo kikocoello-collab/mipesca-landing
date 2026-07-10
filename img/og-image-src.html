@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>MiPesca — og:image</title>
+<style>
+  :root {
+    --azul-cla:   #74dcf5;
+    --abismo-2:   #0a3a57;
+    --azul-osc:   #05263c;
+    --fosa:       #04121f;
+    --fuente:     'Segoe UI', system-ui, sans-serif;
+    --grad-oceano: linear-gradient(135deg, #00b4d8, #0077b6);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1200px; height: 630px; overflow: hidden;
+    font-family: var(--fuente); color: #fff;
+    background: radial-gradient(130% 130% at 20% 0%, var(--abismo-2) 0%, var(--azul-osc) 55%, #031321 100%);
+  }
+  .lienzo { position: relative; width: 1200px; height: 630px; display: flex; align-items: center; padding: 0 72px; }
+  .texto { max-width: 590px; }
+  .marca { display: flex; align-items: center; gap: 14px; margin-bottom: 30px; }
+  .marca img { width: 46px; height: 46px; border-radius: 11px; }
+  .marca span { font-size: 28px; font-weight: 800; }
+  .marca .mi { color: var(--azul-cla); }
+  h1 { font-size: 47px; font-weight: 800; line-height: 1.16; letter-spacing: -1px; }
+  h1 em { font-style: normal; color: var(--azul-cla); }
+  p { margin-top: 20px; font-size: 22px; line-height: 1.5; color: rgba(255,255,255,.78); max-width: 54ch; }
+  .badge {
+    margin-top: 30px; display: inline-flex; align-items: center; gap: 10px;
+    background: var(--grad-oceano); font-weight: 800; font-size: 19px;
+    padding: 14px 28px; border-radius: 40px; box-shadow: 0 8px 22px rgba(0,150,199,.4);
+  }
+  .fondo-olas { position: absolute; inset: auto 0 0 0; opacity: .5; }
+
+  .telefono {
+    position: absolute; right: 78px; top: 50%; transform: translateY(-50%);
+    width: 300px; background: var(--fosa); border-radius: 34px; padding: 9px;
+    border: 1px solid rgba(116,220,245,.22);
+    box-shadow: 0 26px 60px rgba(0,0,0,.55);
+  }
+  .telefono img { display: block; width: 100%; border-radius: 25px; }
+</style>
+</head>
+<body>
+  <div class="lienzo">
+    <svg class="fondo-olas" viewBox="0 0 1200 120" preserveAspectRatio="none" width="1200" height="120">
+      <path d="M0 80c60 0 60-22 120-22s60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22v60H0z" fill="#74dcf5" opacity=".07"/>
+    </svg>
+
+    <div class="texto">
+      <div class="marca">
+        <img src="logo.svg" alt="" />
+        <span><span class="mi">Mi</span>Pesca</span>
+      </div>
+      <h1>Guarda tus spots y asegúrate <em>las mejores condiciones</em> para tu jornada</h1>
+      <p>Solunar + meteo + mareas en una puntuación de 0 a 100. Diario de capturas, comunidad y niveles. Gratis.</p>
+      <div class="badge">pescando.es</div>
+    </div>
+
+    <div class="telefono">
+      <img src="app-pescar.png" alt="" />
+    </div>
+  </div>
+</body>
+</html>
