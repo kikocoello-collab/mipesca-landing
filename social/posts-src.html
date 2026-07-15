@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>MiPesca — posts Instagram (fuente)</title>
+<style>
+  :root {
+    --azul-cla:   #74dcf5;
+    --abismo-2:   #0a3a57;
+    --azul-osc:   #05263c;
+    --fosa:       #04121f;
+    --fuente:     'Segoe UI', system-ui, sans-serif;
+    --grad-oceano: linear-gradient(135deg, #00b4d8, #0077b6);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #000; font-family: var(--fuente); color: #fff; }
+
+  /* ---- lienzo 1080×1350 (4:5, feed de Instagram) ---- */
+  .slide {
+    width: 1080px; height: 1350px; margin: 40px auto;
+    position: relative; overflow: hidden;
+    background: radial-gradient(130% 130% at 20% 0%, var(--abismo-2) 0%, var(--azul-osc) 55%, #031321 100%);
+    padding: 84px 84px 0;
+    display: flex; flex-direction: column;
+  }
+  .fondo-olas { position: absolute; inset: auto 0 0 0; opacity: .55; pointer-events: none; }
+
+  .marca { display: flex; align-items: center; gap: 16px; margin-bottom: 56px; }
+  .marca img { width: 58px; height: 58px; border-radius: 14px; }
+  .marca span { font-size: 36px; font-weight: 800; }
+  .marca .mi { color: var(--azul-cla); }
+
+  .chip {
+    display: inline-flex; align-self: flex-start; align-items: center; gap: 12px;
+    font-size: 27px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--azul-cla); background: rgba(116,220,245,.1);
+    border: 1px solid rgba(116,220,245,.35);
+    padding: 12px 26px; border-radius: 40px; margin-bottom: 34px;
+  }
+
+  h1 { font-size: 88px; font-weight: 800; line-height: 1.12; letter-spacing: -2px; }
+  h1 em, h2 em { font-style: normal; color: var(--azul-cla); }
+  h2 { font-size: 68px; font-weight: 800; line-height: 1.14; letter-spacing: -1.5px; }
+  .sub { margin-top: 28px; font-size: 37px; line-height: 1.5; color: rgba(255,255,255,.8); max-width: 30ch; }
+
+  .desliza {
+    position: absolute; bottom: 64px; right: 84px;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 30px; font-weight: 700; color: var(--azul-cla);
+  }
+
+  /* móvil con captura real, sangrando por abajo */
+  .telefono {
+    position: absolute; left: 50%; transform: translateX(-50%); bottom: -290px;
+    width: 470px; background: var(--fosa); border-radius: 56px; padding: 14px;
+    border: 1px solid rgba(116,220,245,.25);
+    box-shadow: 0 -20px 70px rgba(0,0,0,.55);
+  }
+  .telefono img { display: block; width: 100%; border-radius: 44px; }
+  .slide.con-movil { text-align: center; align-items: center; }
+  .slide.con-movil .chip { align-self: center; }
+  .slide.con-movil .sub { margin-left: auto; margin-right: auto; }
+
+  /* slides centrados (portadas / CTA) */
+  .slide.centrado { justify-content: center; align-items: center; text-align: center; padding-bottom: 84px; }
+  .slide.centrado .chip { align-self: center; }
+  .slide.centrado .sub { margin-left: auto; margin-right: auto; }
+
+  .badge {
+    margin-top: 48px; display: inline-flex; align-items: center; gap: 12px;
+    background: var(--grad-oceano); font-weight: 800; font-size: 40px;
+    padding: 24px 52px; border-radius: 60px; box-shadow: 0 10px 30px rgba(0,150,199,.45);
+  }
+  .nota-bio { margin-top: 30px; font-size: 30px; color: rgba(255,255,255,.65); }
+  .logo-grande { width: 190px; height: 190px; border-radius: 44px; margin-bottom: 44px; }
+
+  /* slides numerados (carrusel educativo) */
+  .num {
+    font-size: 260px; font-weight: 800; line-height: 1;
+    color: transparent; -webkit-text-stroke: 3px rgba(116,220,245,.55);
+    margin-bottom: 8px;
+  }
+  .slide.numerado { justify-content: center; padding-bottom: 84px; }
+  .slide.numerado h2 { max-width: 12ch; }
+  .slide.numerado .sub { max-width: 26ch; font-size: 40px; }
+
+  /* plantilla pronóstico del finde */
+  .pron-lugar { font-size: 42px; font-weight: 700; color: rgba(255,255,255,.85); margin-top: -30px; }
+  .pron-circulo {
+    width: 480px; height: 480px; border-radius: 50%; margin: 60px auto 50px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: rgba(116,220,245,.07);
+    border: 10px solid var(--azul-cla);
+    box-shadow: 0 0 90px rgba(116,220,245,.28), inset 0 0 60px rgba(116,220,245,.1);
+  }
+  .pron-circulo .valor { font-size: 190px; font-weight: 800; line-height: 1; }
+  .pron-circulo .valor small { font-size: 60px; font-weight: 700; color: rgba(255,255,255,.55); }
+  .pron-circulo .etiqueta { font-size: 44px; font-weight: 800; color: var(--azul-cla); margin-top: 8px; }
+  .pron-filas { width: 100%; display: flex; flex-direction: column; gap: 22px; }
+  .pron-fila {
+    display: flex; align-items: center; gap: 26px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(116,220,245,.18);
+    border-radius: 26px; padding: 26px 36px; font-size: 36px;
+  }
+  .pron-fila .dia { font-weight: 800; color: var(--azul-cla); min-width: 100px; }
+  .pron-fila .horas { font-weight: 700; }
+  .pron-fila .motivo { margin-left: auto; color: rgba(255,255,255,.6); font-size: 31px; }
+  .pron-pie { margin-top: auto; padding: 40px 0 56px; text-align: center; font-size: 33px; font-weight: 800; color: var(--azul-cla); }
+</style>
+</head>
+<body>
+
+<!-- ══════════ POST 1 · Presentación (carrusel 5) ══════════ -->
+
+<div class="slide centrado" data-name="post1-1-portada">
+  <svg class="fondo-olas" viewBox="0 0 1200 120" preserveAspectRatio="none" width="1080" height="150">
+    <path d="M0 80c60 0 60-22 120-22s60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22v60H0z" fill="#74dcf5" opacity=".07"/>
+  </svg>
+  <img class="logo-grande" src="../img/logo-1024.png" alt="" />
+  <h1>¿Y si supieras <em>las mejores horas</em> para pescar antes de salir de casa?</h1>
+  <p class="sub">Te presentamos MiPesca 🎣</p>
+  <div class="desliza">desliza <span>→</span></div>
+</div>
+
+<div class="slide con-movil" data-name="post1-2-puntuacion">
+  <div class="chip">01 · Pronóstico</div>
+  <h2>Solunar + meteo + mareas en <em>una sola puntuación</em></h2>
+  <p class="sub">De 0 a 100. Miras el número y sabes si merece la pena salir.</p>
+  <div class="telefono"><img src="../img/app-pescar.png" alt="" /></div>
+</div>
+
+<div class="slide con-movil" data-name="post1-3-mapa">
+  <div class="chip">02 · Mapa en vivo</div>
+  <h2>Mira <em>quién está pescando</em> ahora mismo</h2>
+  <p class="sub">Spots, avisos y actividad en tiempo real, estilo Waze.</p>
+  <div class="telefono"><img src="../img/app-mapa-vivo.png" alt="" /></div>
+</div>
+
+<div class="slide con-movil" data-name="post1-4-pokedex">
+  <div class="chip">03 · Tu colección</div>
+  <h2>Cada captura suma en tu <em>Pokédex</em></h2>
+  <p class="sub">70 especies por descubrir, con rangos y logros.</p>
+  <div class="telefono"><img src="../img/app-pokedex.png" alt="" /></div>
+</div>
+
+<div class="slide centrado" data-name="post1-5-cta">
+  <svg class="fondo-olas" viewBox="0 0 1200 120" preserveAspectRatio="none" width="1080" height="150">
+    <path d="M0 80c60 0 60-22 120-22s60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22v60H0z" fill="#74dcf5" opacity=".07"/>
+  </svg>
+  <img class="logo-grande" src="../img/logo-1024.png" alt="" />
+  <h1>Gratis. Sin descargas. <em>En tu navegador.</em></h1>
+  <div class="badge">pescando.es</div>
+  <p class="nota-bio">🔗 Link en la bio</p>
+</div>
+
+<!-- ══════════ POST 2 · Carrusel educativo solunar (5) ══════════ -->
+
+<div class="slide centrado" data-name="post2-1-portada">
+  <svg class="fondo-olas" viewBox="0 0 1200 120" preserveAspectRatio="none" width="1080" height="150">
+    <path d="M0 80c60 0 60-22 120-22s60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22v60H0z" fill="#74dcf5" opacity=".07"/>
+  </svg>
+  <div class="chip">Guía rápida</div>
+  <h1>Los 3 momentos en los que los peces <em>pican más</em></h1>
+  <p class="sub">(y cómo saberlos sin hacer cálculos)</p>
+  <div class="desliza">desliza <span>→</span></div>
+</div>
+
+<div class="slide numerado" data-name="post2-2-amanecer">
+  <div class="num">01</div>
+  <h2>Amanecer y <em>atardecer</em></h2>
+  <p class="sub">Con poca luz, los depredadores se acercan a comer a la orilla. Las dos horas alrededor de la salida y la puesta de sol son oro puro. 🌅</p>
+</div>
+
+<div class="slide numerado" data-name="post2-3-solunar">
+  <div class="num">02</div>
+  <h2>Periodos solunares <em>mayores</em></h2>
+  <p class="sub">Cuando la luna pasa justo sobre tu cabeza (o justo bajo tus pies), la actividad se dispara durante unas 2 horas. Es la base de la teoría solunar. 🌙</p>
+</div>
+
+<div class="slide numerado" data-name="post2-4-mareas">
+  <div class="num">03</div>
+  <h2>Cambios de <em>marea</em></h2>
+  <p class="sub">El agua en movimiento arrastra comida y activa a los peces. Las horas alrededor de la pleamar y la bajamar suelen ser las mejores. 🌊</p>
+</div>
+
+<div class="slide con-movil" data-name="post2-5-cta">
+  <div class="chip">La buena noticia</div>
+  <h2>MiPesca lo junta todo en <em>una puntuación de 0 a 100</em></h2>
+  <p class="sub">Para tu spot, hora a hora. Gratis en pescando.es · link en la bio.</p>
+  <div class="telefono"><img src="../img/app-pescar.png" alt="" /></div>
+</div>
+
+<!-- ══════════ POST 3 · Pokédex y niveles (3) ══════════ -->
+
+<div class="slide con-movil" data-name="post3-1-pokedex">
+  <div class="chip">Pokédex</div>
+  <h2>¿Cuántas especies <em>llevas ya</em>?</h2>
+  <p class="sub">70 especies de nuestras costas y ríos. Cada captura desbloquea su ficha.</p>
+  <div class="telefono"><img src="../img/app-pokedex.png" alt="" /></div>
+</div>
+
+<div class="slide con-movil" data-name="post3-2-niveles">
+  <div class="chip">Niveles</div>
+  <h2>De Grumete a <em>Leyenda del mar</em></h2>
+  <p class="sub">7 rangos y 16 logros. Pescar ahora tiene partida guardada.</p>
+  <div class="telefono"><img src="../img/app-niveles.png" alt="" /></div>
+</div>
+
+<div class="slide centrado" data-name="post3-3-cta">
+  <svg class="fondo-olas" viewBox="0 0 1200 120" preserveAspectRatio="none" width="1080" height="150">
+    <path d="M0 80c60 0 60-22 120-22s60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22v60H0z" fill="#74dcf5" opacity=".07"/>
+  </svg>
+  <img class="logo-grande" src="../img/logo-1024.png" alt="" />
+  <h1>Empieza tu <em>colección</em> hoy</h1>
+  <div class="badge">pescando.es</div>
+  <p class="nota-bio">🔗 Link en la bio</p>
+</div>
+
+<!-- ══════════ POST 4 · Mapa vivo + chat de playa (3) ══════════ -->
+
+<div class="slide con-movil" data-name="post4-1-waze">
+  <div class="chip">Mapa en vivo</div>
+  <h2>El <em>Waze</em> de la pesca</h2>
+  <p class="sub">Mira dónde hay gente pescando, guarda tus spots y comparte avisos de zona.</p>
+  <div class="telefono"><img src="../img/app-mapa-vivo.png" alt="" /></div>
+</div>
+
+<div class="slide con-movil" data-name="post4-2-chat">
+  <div class="chip">Chat de playa</div>
+  <h2>Habla con los que están <em>en tu misma orilla</em></h2>
+  <p class="sub">Qué está entrando, con qué cebo, cómo está el mar. Cada zona tiene su chat.</p>
+  <div class="telefono"><img src="../img/app-chat-zona.png" alt="" /></div>
+</div>
+
+<div class="slide centrado" data-name="post4-3-cta">
+  <svg class="fondo-olas" viewBox="0 0 1200 120" preserveAspectRatio="none" width="1080" height="150">
+    <path d="M0 80c60 0 60-22 120-22s60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22 60 22 120 22 60-22 120-22v60H0z" fill="#74dcf5" opacity=".07"/>
+  </svg>
+  <img class="logo-grande" src="../img/logo-1024.png" alt="" />
+  <h1>Nos vemos <em>en el agua</em> 🌊</h1>
+  <div class="badge">pescando.es</div>
+  <p class="nota-bio">🔗 Link en la bio</p>
+</div>
+
+<!-- ══════════ POST 5 · Plantilla semanal: pronóstico del finde (1) ══════════
+     EDITABLE cada semana: lugar, puntuación, etiqueta y las filas de horas.
+     Después vuelve a ejecutar el script de render. -->
+
+<div class="slide" data-name="post5-pronostico-finde">
+  <div class="marca">
+    <img src="../img/logo.svg" alt="" />
+    <span><span class="mi">Mi</span>Pesca</span>
+  </div>
+  <div class="chip">Pronóstico del finde</div>
+  <h2 class="pron-lugar">📍 Cádiz · La Caleta</h2>
+  <div class="pron-circulo">
+    <div class="valor">87<small>/100</small></div>
+    <div class="etiqueta">MUY BUENO</div>
+  </div>
+  <div class="pron-filas">
+    <div class="pron-fila"><span class="dia">SÁB</span><span class="horas">07:10 – 09:40</span><span class="motivo">amanecer + periodo mayor</span></div>
+    <div class="pron-fila"><span class="dia">SÁB</span><span class="horas">20:30 – 22:00</span><span class="motivo">atardecer + pleamar</span></div>
+    <div class="pron-fila"><span class="dia">DOM</span><span class="horas">08:00 – 10:20</span><span class="motivo">periodo mayor + subida</span></div>
+  </div>
+  <div class="pron-pie">Tu spot, hora a hora → pescando.es</div>
+</div>
+
+</body>
+</html>
