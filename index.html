@@ -206,6 +206,11 @@
     .grid4 .reveal:nth-child(2) { transition-delay: .08s; }
     .grid4 .reveal:nth-child(3) { transition-delay: .16s; }
     .grid4 .reveal:nth-child(4) { transition-delay: .24s; }
+    .grid-datos .reveal:nth-child(2) { transition-delay: .06s; }
+    .grid-datos .reveal:nth-child(3) { transition-delay: .12s; }
+    .grid-datos .reveal:nth-child(4) { transition-delay: .18s; }
+    .grid-datos .reveal:nth-child(5) { transition-delay: .24s; }
+    .grid-datos .reveal:nth-child(6) { transition-delay: .30s; }
     @media (prefers-reduced-motion: reduce) {
       .reveal, .paso-s { opacity: 1 !important; transform: none !important; transition: none !important; }
       .phone-screen img { transition: none; }
@@ -229,6 +234,24 @@
       display: inline-block; margin-top: 10px; font-size: 11px; font-weight: 700;
       padding: 3px 10px; border-radius: 20px; background: rgba(255,122,92,.15); color: var(--coral);
     }
+
+    /* ── ¿Sabías que…? (muestra de la enciclopedia) ── */
+    .grid-datos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .dato {
+      background: rgba(255,255,255,.06); border-radius: var(--radio); padding: 22px;
+      border: 1px solid rgba(116,220,245,.08);
+      border-left: 3px solid var(--azul-cla);
+    }
+    .dato.aviso { border-left-color: var(--coral); }
+    .dato h3 { font-size: 17px; margin-bottom: 8px; line-height: 1.3; }
+    .dato p { font-size: 14px; color: rgba(255,255,255,.65); }
+    .dato .especie {
+      display: block; margin-top: 12px; font-size: 12px; font-weight: 700;
+      color: var(--azul-cla); letter-spacing: .2px;
+    }
+    .dato .especie em { font-style: italic; font-weight: 400; color: rgba(255,255,255,.45); }
+    .datos-pie { text-align: center; margin-top: 28px; color: rgba(255,255,255,.65); font-size: 15px; }
+    .datos-pie a { color: var(--azul-cla); font-weight: 700; }
 
     /* ── Texto SEO ── */
     .seo { max-width: 720px; margin: 0 auto; color: rgba(255,255,255,.72); font-size: 15.5px; }
@@ -275,6 +298,7 @@
       .hero p.sub { margin-inline: auto; }
       .hero-ctas { justify-content: center; }
       .grid4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-datos { grid-template-columns: repeat(2, 1fr); }
       .hero .phone { margin-top: 8px; }
 
       /* Scrolly en móvil: el teléfono (pequeño) queda fijo arriba y los
@@ -311,6 +335,7 @@
     }
     @media (max-width: 520px) {
       .grid4 { grid-template-columns: 1fr; }
+      .grid-datos { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -473,6 +498,48 @@
           <span class="chip">Niveles y logros</span>
         </div>
       </div>
+    </section>
+
+    <!-- ¿SABÍAS QUE…? -->
+    <section id="sabias-que">
+      <h2 class="sec-titulo reveal">¿Sabías que…?</h2>
+      <p class="sec-sub reveal">Seis de los datos que te esperan en la Guía. Hay uno por cada una de las 70 especies.</p>
+      <div class="grid-datos">
+        <div class="dato reveal">
+          <h3>Hay un pez alucinógeno en tu playa</h3>
+          <p>En raras ocasiones la carne de la salpa provoca alucinaciones, según lo que haya comido. En la antigua Roma se usaba con fines «recreativos».</p>
+          <span class="especie">Salpa · <em>Sarpa salpa</em></span>
+        </div>
+        <div class="dato aviso reveal">
+          <h3>El pez más venenoso de Europa vive donde te bañas</h3>
+          <p>La araña o faneca brava pasa el día enterrada en la arena. Su picadura es la lesión de pesca más común del verano español.</p>
+          <span class="especie">Araña blanca · <em>Trachinus draco</em></span>
+        </div>
+        <div class="dato reveal">
+          <h3>Tres corazones y nueve cerebros</h3>
+          <p>El pulpo tiene un cerebro central y uno por brazo. Abre frascos, resuelve laberintos y reconoce caras: el invertebrado más listo del mar.</p>
+          <span class="especie">Pulpo · <em>Octopus vulgaris</em></span>
+        </div>
+        <div class="dato aviso reveal">
+          <h3>Esconde una segunda mandíbula</h3>
+          <p>La morena lanza una boca faríngea hacia delante para arrastrar la presa hacia dentro. Los romanos ya las criaban en viveros como manjar.</p>
+          <span class="especie">Morena · <em>Muraena helena</em></span>
+        </div>
+        <div class="dato reveal">
+          <h3>Lleva 100 millones de años pescando con caña</h3>
+          <p>El rape usa un señuelo propio (el ilicio) sobre el morro para atraer a sus presas. Inventó la pesca mucho antes que nosotros.</p>
+          <span class="especie">Rape · <em>Lophius piscatorius</em></span>
+        </div>
+        <div class="dato reveal">
+          <h3>Un ojo que emigra por la cabeza</h3>
+          <p>El lenguado nace con un ojo a cada lado, como un pez normal. A las pocas semanas uno viaja por el cráneo hasta juntarse con el otro.</p>
+          <span class="especie">Lenguado · <em>Solea solea</em></span>
+        </div>
+      </div>
+      <p class="datos-pie reveal">
+        Cada ficha trae además identificación, hábitat, cebos, técnicas, talla legal y cómo cocinarla.
+        <a href="https://mipesca.vercel.app/">Abrir la Guía gratis ↗</a>
+      </p>
     </section>
 
     <!-- TEXTO SEO -->
